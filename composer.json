@@ -1,0 +1,23 @@
+{
+    "name": "gnikides/lemma",
+    "description": "Cicoro package",
+    "type": "library",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "classmap": [],
+        "psr-4": {
+            "Lemma\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": ["*"]
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
