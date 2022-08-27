@@ -2,8 +2,8 @@
 
 class TextScrubber
 {
-    private $text;
-    private $tokens;
+    private $text = '';
+    private $tokens = [];
     private $original_text;
 
     public function __construct($text)
@@ -28,7 +28,7 @@ class TextScrubber
                 '--','-','_','(',')','{','}','²','΄',
                 "'",'1','2','3','4','5','6','7','8','9',
                 '0','#',',','>','<','»','','[',']','%',
-                '*','^','&','  ',                
+                '*','^','&','  ','«','/','-','....'               
             ],
             ' ',
             $this->text
@@ -57,12 +57,12 @@ class TextScrubber
     {        
         $tokens = preg_split('/\s+/', $this->text);
 
-        foreach ($tokens as $token) {
+        foreach ($tokens as $key => $token) {
             $token = $this->scrubToken($token);
 
-            $tokens = preg_split('/\s+/', $token);
+            $more_tokens = preg_split('/\s+/', $token);
 
-            foreach ($tokens as $key => $token) {
+            foreach ($more_tokens as $key => $token) {
                 if (false !== mb_strpos($token, '-')) {
                     unset($tokens[$key]);
                     $pieces = explode('-', $token);                    
@@ -71,14 +71,14 @@ class TextScrubber
                     }
                 }
             }
-            foreach ($tokens as $token) {
-                if ('' != $token 
-                    && !empty($token) 
-                    && mb_strlen($token) > 1) {
-                    $this->tokens = $this->scrubToken($token);
-                }   
-            }
-        }    
+        }
+        foreach ($tokens as $token) {
+            if ('' != $token 
+                && !empty($token) 
+                && mb_strlen($token) > 1) {
+                $this->tokens[] = $this->scrubToken($token);
+            }   
+        }            
     }
 
     public function scrubToken(string $string)
@@ -88,7 +88,7 @@ class TextScrubber
                 ',',';'.':','.','?','!','%','·',
                 '…','..','...','....','.....',"'''",
                 "''","/",'<i>','</i>','<b>','</b>','<',
-                '>','"','=',']','[',                                                  
+                '>','"','=',']','[','/','«','-','....'                                                  
             ],
             ' ',
             $string

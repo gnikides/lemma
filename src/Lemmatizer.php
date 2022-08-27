@@ -407,6 +407,16 @@ class Lemmatizer
         return false;
     }
 
+    public function resetCounts()
+    {
+        $this->lemmas = [];
+        $this->stems = [];
+        $this->undefined = [];
+        $this->raw_tokens = [];                
+        $this->stopped_tokens = []; 
+        $this->unidentified_tokens = [];       
+    } 
+
     public function setDictionary(array $dictionary)
     {
         $this->dictionary = $dictionary;
