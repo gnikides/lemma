@@ -4,7 +4,8 @@
     "type": "library",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "league/csv": "^9.7"        
     },
     "autoload": {
         "classmap": [],
