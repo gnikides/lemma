@@ -35,7 +35,7 @@ class TextScrubber
         );
         $this->text = trim($this->text);
         $this->text = str_replace('  ', ' ', $this->text);
-        $this->text = str_ireplace(
+        $this->text = str_replace(
             [ 
                 'a','b','c','d','e','f','g','h','i',
                 'j','k','l','m','n','o','p','q','r',
