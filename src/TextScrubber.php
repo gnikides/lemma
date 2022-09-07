@@ -55,24 +55,30 @@ class TextScrubber
 
     public function processTokens()
     {        
+        $all_tokens = [];
         $tokens = preg_split('/\s+/', $this->text);
 
         foreach ($tokens as $key => $token) {
             $token = $this->scrubToken($token);
-
             $more_tokens = preg_split('/\s+/', $token);
 
-            foreach ($more_tokens as $key => $token) {
-                if (false !== mb_strpos($token, '-')) {
-                    unset($tokens[$key]);
-                    $pieces = explode('-', $token);                    
-                    foreach ($pieces as $piece) {
-                        $tokens[] = $piece;
-                    }
+            if ($more_tokens) {
+                foreach ($more_tokens as $key => $token) {
+                    if (false !== mb_strpos($token, '-')) {
+                        unset($tokens[$key]);
+                        $pieces = explode('-', $token);                    
+                        foreach ($pieces as $piece) {
+                            $all_tokens[] = $piece;
+                        }
+                    } else {
+                        $all_tokens[] = $token;
+                    }    
                 }
-            }
+            } else {
+                $all_tokens[] = $token;
+            }    
         }
-        foreach ($tokens as $token) {
+        foreach ($all_tokens as $token) {
             if ('' != $token 
                 && !empty($token) 
                 && mb_strlen($token) > 1) {
