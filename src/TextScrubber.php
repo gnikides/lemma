@@ -6,16 +6,13 @@ class TextScrubber
     private $tokens = [];
     private $original_text;
 
-    public function __construct($text)
+    public function makeTokens(string $text)
     {
         $this->text = $text;
         $this->original_text = $text;
-    }
 
-    public function findTokens()
-    {
         $this->scrubText();
-        $this->processTokens();        
+        $this->splitToTokens();        
         return $this->tokens;
     }
 
@@ -53,7 +50,7 @@ class TextScrubber
         $this->text = trim($this->text);
     }
 
-    public function processTokens()
+    public function splitToTokens()
     {        
         $all_tokens = [];
         $tokens = preg_split('/\s+/', $this->text);
@@ -110,7 +107,12 @@ class TextScrubber
 
         return $token;
     }  
-    
+
+    public function getTokens()
+    {
+        return $this->tokens;
+    }
+
     public function getText()
     {
         return $this->text;
@@ -118,6 +120,6 @@ class TextScrubber
 
     public function getOriginalText()
     {
-        return $this->text;
+        return $this->original_text;
     }    
 }
