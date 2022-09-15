@@ -54,9 +54,9 @@ class Lemmatizer
     
     public function processToken(string $token)
     {   
-        $token = Formatter::normalize($token);
-
         $this->raw_tokens[] = $token;
+                
+        $token = Formatter::normalize($token);
 
         if ($this->isIgnoreWord($token)) {
             return true;
@@ -245,7 +245,7 @@ class Lemmatizer
                             'encoding'  => Formatter::encoding($token),
                         ];
                     }    
-                    $this->lemmas[] = $lemma;                          
+                    $this->lemmas = $lemma;              
                     return $lemma;
                 }   
             }   
