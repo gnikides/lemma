@@ -14,9 +14,9 @@ class Lemmatizer
 
     protected $texts; 
 
-    protected $lemmas;
-    protected $stems;
-    protected $undefined;
+    protected $lemmas = [];
+    protected $stems = [];
+    protected $undefined = [];
 
     protected $raw_tokens;
     protected $stopped_tokens;
@@ -245,7 +245,7 @@ class Lemmatizer
                             'encoding'  => Formatter::encoding($token),
                         ];
                     }    
-                    $this->lemmas = $lemma;              
+                    $this->lemmas[] = $lemma;              
                     return $lemma;
                 }   
             }   
